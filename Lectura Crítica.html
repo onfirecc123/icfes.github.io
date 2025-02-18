@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Lectura Crítica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .pregunta {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .respuesta-correcta {
+            color: green;
+            font-weight: bold;
+        }
+        .respuesta-incorrecta {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prueba de Lectura Crítica</h1>
+    <div id="preguntas"></div>
+    
+    <script>
+        const preguntas = [
+    { pregunta: "¿Cuál es el propósito principal del texto cuando un autor argumenta en favor del uso de energías renovables?", opciones: ["Informar sobre diferentes tipos de energía", "Persuadir al lector sobre los beneficios de las energías renovables", "Describir el proceso de generación de energía solar", "Narrar la historia del uso de la energía en el mundo"], correcta: 1 },
+    { pregunta: "En un artículo de opinión sobre el cambio climático, el autor menciona varios estudios científicos. ¿Qué función cumplen estos estudios dentro del texto?", opciones: ["Sirven como ejemplos para entretener al lector", "Apoyan con evidencia la postura del autor", "Añaden datos irrelevantes al argumento central", "Contradicen la opinión del autor"], correcta: 1 },
+    { pregunta: "Si en un artículo se dice que 'las ciudades deberían reducir su huella de carbono', ¿qué tipo de argumento está utilizando el autor?", opciones: ["Descriptivo", "Expositivo", "Prescriptivo", "Narrativo"], correcta: 2 },
+    { pregunta: "En una reseña de un libro, el crítico menciona que 'la trama es envolvente y los personajes están bien construidos'. ¿Cuál es el propósito principal de este texto?", opciones: ["Contar una historia", "Dar una opinión fundamentada sobre el libro", "Explicar cómo se escribió el libro", "Analizar el contexto histórico del libro"], correcta: 1 },
+    { pregunta: "En un texto publicitario que dice '¡Compra ahora y ahorra un 50% en tu próxima compra!', ¿qué estrategia está utilizando la publicidad?", opciones: ["Apelación a la lógica", "Uso de datos históricos", "Persuasión a través de incentivos", "Análisis de ventajas y desventajas"], correcta: 2 },
+    { pregunta: "¿Qué tipo de información se puede inferir de un artículo que menciona que 'en los últimos años, las temperaturas globales han aumentado considerablemente'?", opciones: ["Que el cambio climático está en declive", "Que el calentamiento global es una tendencia actual", "Que la temperatura siempre se mantiene estable", "Que las estaciones del año han desaparecido"], correcta: 1 },
+    { pregunta: "Si un texto menciona que 'los estudiantes que leen regularmente mejoran su comprensión lectora', ¿qué tipo de relación establece entre la lectura y la comprensión?", opciones: ["Causalidad", "Oposición", "Contraste", "Enumeración"], correcta: 0 },
+    { pregunta: "En un texto narrativo, ¿cuál es la función principal del punto de vista del narrador?", opciones: ["Explicar cómo se desarrollará la trama", "Determinar la perspectiva desde la cual se cuenta la historia", "Enumerar los hechos más importantes", "Presentar un resumen de la historia"], correcta: 1 },
+    { pregunta: "Si un artículo de opinión menciona que 'la educación debe adaptarse a las nuevas tecnologías', ¿qué tipo de argumento está utilizando el autor?", opciones: ["Comparativo", "Prescriptivo", "Narrativo", "Hipotético"], correcta: 1 },
+    { pregunta: "¿Cuál es la intención de un autor al incluir estadísticas en un texto argumentativo?", opciones: ["Hacer que el texto sea más extenso", "Añadir información sin relevancia", "Respaldar sus afirmaciones con datos verificables", "Introducir una opinión personal"], correcta: 2 },
+    { pregunta: "¿Qué relación se establece cuando un texto compara dos eventos históricos similares?", opciones: ["Causalidad", "Oposición", "Analogía", "Enumeración"], correcta: 2 },
+    { pregunta: "¿Cuál es la principal función de un resumen dentro de un texto académico?", opciones: ["Presentar información detallada", "Reafirmar la opinión del autor", "Sintetizar las ideas principales", "Introducir un nuevo argumento"], correcta: 2 },
+    { pregunta: "En un texto que describe los efectos negativos del consumo excesivo de azúcar, ¿qué tipo de estructura se utiliza?", opciones: ["Problema-solución", "Comparación", "Narrativa", "Instruccional"], correcta: 0 },
+    { pregunta: "¿Cuál de las siguientes características es propia de un texto expositivo?", opciones: ["Utilización de personajes ficticios", "Presentación de hechos con objetividad", "Uso frecuente de opiniones personales", "Presencia de diálogos entre personajes"], correcta: 1 },
+    { pregunta: "¿Por qué un texto argumentativo puede incluir citas de expertos?", opciones: ["Para añadir información irrelevante", "Para dar mayor credibilidad a los argumentos", "Para hacer el texto más largo", "Para cambiar el tema principal"], correcta: 1 },
+    { pregunta: "¿Qué tipo de texto es un ensayo que explora las causas y consecuencias de la migración?", opciones: ["Narrativo", "Argumentativo", "Expositivo", "Lírico"], correcta: 1 },
+    { pregunta: "¿Cuál es la función de un conector como 'sin embargo' en un texto?", opciones: ["Indicar una conclusión", "Establecer un contraste", "Resumir información", "Enumerar ideas"], correcta: 1 },
+    { pregunta: "¿Qué elemento se espera encontrar en una crónica periodística?", opciones: ["Un relato basado en hechos reales", "Opiniones sin fundamento", "Uso de lenguaje poético exclusivamente", "Solo diálogos entre personajes"], correcta: 0 }
+];
+
+        const contenedorPreguntas = document.getElementById("preguntas");
+
+        preguntas.forEach((item, index) => {
+            const divPregunta = document.createElement("div");
+            divPregunta.classList.add("pregunta");
+            divPregunta.innerHTML = `<p><strong>${index + 1}. ${item.pregunta}</strong></p>`;
+            
+            item.opciones.forEach((opcion, i) => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = `pregunta-${index}`;
+                input.value = i;
+                input.onclick = () => verificarRespuesta(index, i);
+                
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(" " + opcion));
+                
+                divPregunta.appendChild(label);
+                divPregunta.appendChild(document.createElement("br"));
+            });
+            
+            const resultado = document.createElement("p");
+            resultado.id = `resultado-${index}`;
+            divPregunta.appendChild(resultado);
+            
+            contenedorPreguntas.appendChild(divPregunta);
+        });
+
+        function verificarRespuesta(index, seleccionada) {
+            const resultado = document.getElementById(`resultado-${index}`);
+            if (seleccionada === preguntas[index].correcta) {
+                resultado.innerHTML = "Respuesta correcta";
+                resultado.className = "respuesta-correcta";
+            } else {
+                resultado.innerHTML = `Respuesta incorrecta. La correcta es: ${preguntas[index].opciones[preguntas[index].correcta]}`;
+                resultado.className = "respuesta-incorrecta";
+            }
+        }
+    </script>
+</body>
+</html>

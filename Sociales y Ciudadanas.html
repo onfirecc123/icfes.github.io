@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sociales y Ciudadanas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .pregunta {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .respuesta-correcta {
+            color: green;
+            font-weight: bold;
+        }
+        .respuesta-incorrecta {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sociales y Ciudadanas</h1>
+    <div id="preguntas"></div>
+    
+    <script>
+        const preguntas = [
+    { pregunta: "¿Cuál de las siguientes es una característica fundamental de un Estado democrático?", opciones: ["Concentración del poder en una sola persona", "Participación ciudadana en la toma de decisiones", "Eliminación de la división de poderes", "Supresión de derechos civiles"], correcta: 1 },
+    { pregunta: "La Revolución Francesa influyó en la historia mundial porque:", opciones: ["Consolidó el sistema feudal", "Eliminó la monarquía en toda Europa", "Propagó ideales de libertad, igualdad y fraternidad", "Reafirmó el poder absoluto del rey"], correcta: 2 },
+    { pregunta: "¿Cuál de las siguientes situaciones es un ejemplo de un derecho fundamental?", opciones: ["El derecho de una empresa a obtener ganancias", "El acceso de toda persona a la educación básica gratuita", "La regulación de precios por parte del gobierno", "El control del internet por parte del Estado"], correcta: 1 },
+    { pregunta: "¿Qué significó la Declaración Universal de los Derechos Humanos de 1948?", opciones: ["La expansión del imperialismo europeo", "La garantía de derechos fundamentales a nivel global", "La eliminación de todas las guerras", "El fin de la segregación racial en el mundo"], correcta: 1 },
+    { pregunta: "La Guerra Fría fue un conflicto entre:", opciones: ["Estados Unidos y Alemania", "La OTAN y la Unión Europea", "Estados Unidos y la Unión Soviética", "China y Japón"], correcta: 2 },
+    { pregunta: "¿Cuál de las siguientes causas fue determinante para la independencia de las colonias americanas?", opciones: ["La Revolución Industrial en Inglaterra", "La influencia de las ideas ilustradas", "El fortalecimiento del sistema feudal", "El apoyo militar de Alemania"], correcta: 1 },
+    { pregunta: "¿Qué sistema económico se basa en la libre competencia y la propiedad privada?", opciones: ["Comunismo", "Socialismo", "Capitalismo", "Mercantilismo"], correcta: 2 },
+    { pregunta: "¿Cuál fue el principal objetivo de la creación de la ONU en 1945?", opciones: ["Regular el comercio internacional", "Promover la paz y la seguridad mundial", "Apoyar el expansionismo territorial", "Controlar el mercado de petróleo"], correcta: 1 },
+    { pregunta: "En un Estado de derecho, las leyes:", opciones: ["Pueden ser aplicadas solo a ciertos grupos", "Son impuestas por un solo gobernante", "Se aplican a todos los ciudadanos por igual", "Se interpretan según la voluntad de los jueces"], correcta: 2 },
+    { pregunta: "¿Qué significa la separación de poderes en una democracia?", opciones: ["Que el poder se concentra en un solo gobernante", "Que las fuerzas militares toman decisiones políticas", "Que las funciones del Estado están divididas en ramas independientes", "Que los jueces hacen las leyes"], correcta: 2 },
+    { pregunta: "¿Cuál de las siguientes fue una causa principal de la Primera Guerra Mundial?", opciones: ["El expansionismo chino", "El asesinato del archiduque Francisco Fernando", "La guerra fría", "La revolución rusa"], correcta: 1 },
+    { pregunta: "¿Cuál de los siguientes eventos marcó el inicio de la Segunda Guerra Mundial?", opciones: ["La firma del Tratado de Versalles", "La invasión de Polonia por parte de Alemania", "La caída del muro de Berlín", "La Revolución Francesa"], correcta: 1 },
+    { pregunta: "¿Cuál de los siguientes organismos es responsable de garantizar los derechos humanos a nivel internacional?", opciones: ["UNESCO", "ONU", "FMI", "OMC"], correcta: 1 },
+    { pregunta: "¿Qué conflicto dividió el mundo en dos bloques ideológicos opuestos después de la Segunda Guerra Mundial?", opciones: ["La Revolución Francesa", "La Guerra Fría", "La Guerra de los Cien Años", "La Primera Guerra Mundial"], correcta: 1 },
+    { pregunta: "¿Cuál fue una de las principales consecuencias de la Guerra Fría en América Latina?", opciones: ["La integración económica con Europa", "La intervención de Estados Unidos y la URSS en conflictos internos", "La creación de la Unión Europea", "El auge del absolutismo monárquico"], correcta: 1 },
+    { pregunta: "¿Qué es la globalización?", opciones: ["Un proceso de integración económica, política y cultural a nivel mundial", "La creación de nuevos imperios territoriales", "La eliminación de la tecnología en los mercados", "Un sistema político basado en monarquías"], correcta: 0 },
+    { pregunta: "¿Cuál de las siguientes fue una consecuencia de la Revolución Industrial?", opciones: ["La abolición de la esclavitud en Europa", "El crecimiento de las ciudades y la urbanización", "La reducción del comercio internacional", "La desaparición del capitalismo"], correcta: 1 },
+    { pregunta: "¿Qué tipo de gobierno establece la Constitución de Colombia?", opciones: ["Monarquía parlamentaria", "Dictadura", "República democrática", "Teocracia"], correcta: 2 },
+    { pregunta: "¿Qué movimiento promovió la igualdad de derechos para las mujeres en el siglo XX?", opciones: ["Fascismo", "Feminismo", "Mercantilismo", "Colonialismo"], correcta: 1 },
+    { pregunta: "¿Cuál es la principal función de la Defensoría del Pueblo en Colombia?", opciones: ["Administrar los recursos económicos del país", "Proteger y garantizar los derechos humanos de los ciudadanos", "Redactar las leyes del Congreso", "Controlar el mercado financiero"], correcta: 1 }
+];
+
+        const contenedorPreguntas = document.getElementById("preguntas");
+
+        preguntas.forEach((item, index) => {
+            const divPregunta = document.createElement("div");
+            divPregunta.classList.add("pregunta");
+            divPregunta.innerHTML = `<p><strong>${index + 1}. ${item.pregunta}</strong></p>`;
+            
+            item.opciones.forEach((opcion, i) => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = `pregunta-${index}`;
+                input.value = i;
+                input.onclick = () => verificarRespuesta(index, i);
+                
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(" " + opcion));
+                
+                divPregunta.appendChild(label);
+                divPregunta.appendChild(document.createElement("br"));
+            });
+            
+            const resultado = document.createElement("p");
+            resultado.id = `resultado-${index}`;
+            divPregunta.appendChild(resultado);
+            
+            contenedorPreguntas.appendChild(divPregunta);
+        });
+
+        function verificarRespuesta(index, seleccionada) {
+            const resultado = document.getElementById(`resultado-${index}`);
+            if (seleccionada === preguntas[index].correcta) {
+                resultado.innerHTML = "Respuesta correcta";
+                resultado.className = "respuesta-correcta";
+            } else {
+                resultado.innerHTML = `Respuesta incorrecta. La correcta es: ${preguntas[index].opciones[preguntas[index].correcta]}`;
+                resultado.className = "respuesta-incorrecta";
+            }
+        }
+    </script>
+</body>
+</html>

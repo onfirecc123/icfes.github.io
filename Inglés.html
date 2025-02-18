@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inglés</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .pregunta {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .respuesta-correcta {
+            color: green;
+            font-weight: bold;
+        }
+        .respuesta-incorrecta {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inglés</h1>
+    <div id="preguntas"></div>
+    
+    <script>
+        const preguntas = [
+    { pregunta: "What is the correct way to complete the sentence? 'She ______ to school every day.'", opciones: ["go", "goes", "going", "gone"], correcta: 1 },
+    { pregunta: "Choose the word that best completes the sentence: 'My father ______ a new car last week.'", opciones: ["buy", "buys", "bought", "buying"], correcta: 2 },
+    { pregunta: "What is the synonym of 'happy'?", opciones: ["Sad", "Joyful", "Angry", "Tired"], correcta: 1 },
+    { pregunta: "Which of the following words is a noun?", opciones: ["Quickly", "Run", "Happiness", "Beautiful"], correcta: 2 },
+    { pregunta: "Choose the correct question for the answer: 'Yes, I have three sisters.'", opciones: ["Do you have brothers?", "Do you have any sisters?", "Are you an only child?", "What is your name?"], correcta: 1 },
+    { pregunta: "Which word is the opposite of 'difficult'?", opciones: ["Hard", "Easy", "Strong", "Tough"], correcta: 1 },
+    { pregunta: "Choose the correct verb form: 'They ______ a movie right now.'", opciones: ["watch", "watches", "watching", "are watching"], correcta: 3 },
+    { pregunta: "Identify the correct comparative form: 'This book is ______ than that one.'", opciones: ["more interesting", "interestinger", "most interesting", "interesting"], correcta: 0 },
+    { pregunta: "Complete the sentence: 'I have lived in this city ______ five years.'", opciones: ["since", "for", "during", "until"], correcta: 1 },
+    { pregunta: "What is the past participle of 'write'?", opciones: ["Wrote", "Written", "Writing", "Writes"], correcta: 1 },
+    { pregunta: "Choose the correct modal verb: 'You ______ wear a helmet when riding a bike.'", opciones: ["should", "could", "may", "can"], correcta: 0 },
+    { pregunta: "What is the plural form of 'child'?", opciones: ["Childs", "Childes", "Children", "Childers"], correcta: 2 },
+    { pregunta: "Identify the sentence in the future tense:", opciones: ["She is playing soccer.", "He will travel next week.", "They ate lunch.", "I am sleeping."], correcta: 1 },
+    { pregunta: "What is the correct preposition? 'She is good ______ math.'", opciones: ["on", "in", "at", "of"], correcta: 2 },
+    { pregunta: "Choose the correct option: 'Where ______ you born?'", opciones: ["was", "were", "be", "is"], correcta: 1 },
+    { pregunta: "What is the synonym of 'big'?", opciones: ["Small", "Huge", "Tiny", "Short"], correcta: 1 },
+    { pregunta: "Select the correct verb: 'She ______ TV every night.'", opciones: ["watch", "watches", "watched", "watching"], correcta: 1 },
+    { pregunta: "Choose the correct answer: 'They ______ in the park right now.'", opciones: ["plays", "are playing", "played", "play"], correcta: 1 },
+    { pregunta: "What is the past tense of 'go'?", opciones: ["Goes", "Gone", "Went", "Going"], correcta: 2 },
+    { pregunta: "Complete the sentence: 'He ______ in London since 2010.'", opciones: ["lived", "has lived", "lives", "is living"], correcta: 1 },
+    { pregunta: "Choose the right question: '______ you ever been to Paris?'", opciones: ["Have", "Has", "Did", "Do"], correcta: 0 },
+    { pregunta: "Select the correct sentence:", opciones: ["She don’t like coffee.", "She doesn’t like coffee.", "She no like coffee.", "She not like coffee."], correcta: 1 },
+    { pregunta: "Choose the best option: 'If it ______ tomorrow, we will stay home.'", opciones: ["rain", "rains", "raining", "rained"], correcta: 1 },
+    { pregunta: "Identify the correct pronoun: 'This book is mine, that one is ______.'", opciones: ["her", "theirs", "his", "ours"], correcta: 1 },
+    { pregunta: "What is the correct sentence?", opciones: ["I am study English.", "I study English.", "I studying English.", "I studied English every day."], correcta: 1 }
+];
+
+        const contenedorPreguntas = document.getElementById("preguntas");
+
+        preguntas.forEach((item, index) => {
+            const divPregunta = document.createElement("div");
+            divPregunta.classList.add("pregunta");
+            divPregunta.innerHTML = `<p><strong>${index + 1}. ${item.pregunta}</strong></p>`;
+            
+            item.opciones.forEach((opcion, i) => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = `pregunta-${index}`;
+                input.value = i;
+                input.onclick = () => verificarRespuesta(index, i);
+                
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(" " + opcion));
+                
+                divPregunta.appendChild(label);
+                divPregunta.appendChild(document.createElement("br"));
+            });
+            
+            const resultado = document.createElement("p");
+            resultado.id = `resultado-${index}`;
+            divPregunta.appendChild(resultado);
+            
+            contenedorPreguntas.appendChild(divPregunta);
+        });
+
+        function verificarRespuesta(index, seleccionada) {
+            const resultado = document.getElementById(`resultado-${index}`);
+            if (seleccionada === preguntas[index].correcta) {
+                resultado.innerHTML = "Respuesta correcta";
+                resultado.className = "respuesta-correcta";
+            } else {
+                resultado.innerHTML = `Respuesta incorrecta. La correcta es: ${preguntas[index].opciones[preguntas[index].correcta]}`;
+                resultado.className = "respuesta-incorrecta";
+            }
+        }
+    </script>
+</body>
+</html>

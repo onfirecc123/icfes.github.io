@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Ciencias Naturales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .pregunta {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .respuesta-correcta {
+            color: green;
+            font-weight: bold;
+        }
+        .respuesta-incorrecta {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prueba de Ciencias Naturales</h1>
+    <div id="preguntas"></div>
+    
+    <script>
+        const preguntas = [
+    { pregunta: "¿Cuál de los siguientes órganos es responsable de la producción de insulina en el cuerpo humano?", opciones: ["Hígado", "Páncreas", "Riñón", "Estómago"], correcta: 1 },
+    { pregunta: "¿Qué tipo de energía se transforma en energía eléctrica en una central hidroeléctrica?", opciones: ["Química", "Mecánica", "Lumínica", "Térmica"], correcta: 1 },
+    { pregunta: "¿Cuál es el gas más abundante en la atmósfera terrestre?", opciones: ["Oxígeno", "Dióxido de carbono", "Nitrógeno", "Argón"], correcta: 2 },
+    { pregunta: "¿Cuál es la unidad básica de la vida?", opciones: ["Átomo", "Célula", "Tejido", "Órgano"], correcta: 1 },
+    { pregunta: "¿Qué tipo de enlace mantiene unidos los átomos en una molécula de agua?", opciones: ["Iónico", "Covalente", "Metálico", "Puente de hidrógeno"], correcta: 1 },
+    { pregunta: "¿Cuál es la función principal de los glóbulos rojos en la sangre?", opciones: ["Transportar oxígeno", "Combatir infecciones", "Producir anticuerpos", "Coagular la sangre"], correcta: 0 },
+    { pregunta: "¿Qué planeta es conocido como el planeta rojo?", opciones: ["Venus", "Júpiter", "Marte", "Saturno"], correcta: 2 },
+    { pregunta: "¿Cuál de las siguientes estructuras celulares está presente en las células vegetales pero no en las animales?", opciones: ["Núcleo", "Mitocondria", "Pared celular", "Ribosomas"], correcta: 2 },
+    { pregunta: "¿Cuál es la principal causa del calentamiento global?", opciones: ["Erosión del suelo", "Emisión de gases de efecto invernadero", "Aumento de la radiación solar", "Desplazamiento de las placas tectónicas"], correcta: 1 },
+    { pregunta: "¿Cómo se llama el proceso mediante el cual las plantas convierten la luz solar en energía química?", opciones: ["Respiración celular", "Fotosíntesis", "Fermentación", "Digestión"], correcta: 1 },
+    { pregunta: "¿Qué órgano del cuerpo humano es responsable de filtrar los desechos de la sangre?", opciones: ["Hígado", "Páncreas", "Riñón", "Pulmón"], correcta: 2 },
+    { pregunta: "¿Cuál de las siguientes fuentes de energía es renovable?", opciones: ["Carbón", "Energía solar", "Petróleo", "Gas natural"], correcta: 1 },
+    { pregunta: "¿Cuál es el componente principal del aire que respiramos?", opciones: ["Oxígeno", "Nitrógeno", "Dióxido de carbono", "Hidrógeno"], correcta: 1 },
+    { pregunta: "¿Cuál es el órgano responsable de la digestión química en el cuerpo humano?", opciones: ["Esófago", "Estómago", "Hígado", "Intestino delgado"], correcta: 1 },
+    { pregunta: "¿Cuál es el principal producto de desecho del proceso de respiración celular?", opciones: ["Oxígeno", "Glucosa", "Dióxido de carbono", "Agua"], correcta: 2 },
+    { pregunta: "¿Cuál de los siguientes procesos es responsable de la formación de nubes?", opciones: ["Evaporación", "Condensación", "Transpiración", "Sublimación"], correcta: 1 },
+    { pregunta: "¿Qué tipo de organismo descompone la materia orgánica muerta en los ecosistemas?", opciones: ["Herbívoros", "Carnívoros", "Descomponedores", "Productores"], correcta: 2 },
+    { pregunta: "¿Cómo se llama el fenómeno en el que la Luna bloquea la luz del Sol hacia la Tierra?", opciones: ["Eclipse solar", "Eclipse lunar", "Marea alta", "Solsticio"], correcta: 0 },
+    { pregunta: "¿Qué nombre recibe la reacción química en la que se libera energía en forma de calor y luz?", opciones: ["Oxidación", "Combustión", "Fermentación", "Reducción"], correcta: 1 },
+    { pregunta: "¿Cuál es el nombre del proceso en el que las plantas liberan oxígeno al ambiente?", opciones: ["Respiración celular", "Fotosíntesis", "Fermentación", "Digestión"], correcta: 1 }
+];
+
+        const contenedorPreguntas = document.getElementById("preguntas");
+
+        preguntas.forEach((item, index) => {
+            const divPregunta = document.createElement("div");
+            divPregunta.classList.add("pregunta");
+            divPregunta.innerHTML = `<p><strong>${index + 1}. ${item.pregunta}</strong></p>`;
+            
+            item.opciones.forEach((opcion, i) => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = `pregunta-${index}`;
+                input.value = i;
+                input.onclick = () => verificarRespuesta(index, i);
+                
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(" " + opcion));
+                
+                divPregunta.appendChild(label);
+                divPregunta.appendChild(document.createElement("br"));
+            });
+            
+            const resultado = document.createElement("p");
+            resultado.id = `resultado-${index}`;
+            divPregunta.appendChild(resultado);
+            
+            contenedorPreguntas.appendChild(divPregunta);
+        });
+
+        function verificarRespuesta(index, seleccionada) {
+            const resultado = document.getElementById(`resultado-${index}`);
+            if (seleccionada === preguntas[index].correcta) {
+                resultado.innerHTML = "Respuesta correcta";
+                resultado.className = "respuesta-correcta";
+            } else {
+                resultado.innerHTML = `Respuesta incorrecta. La correcta es: ${preguntas[index].opciones[preguntas[index].correcta]}`;
+                resultado.className = "respuesta-incorrecta";
+            }
+        }
+    </script>
+</body>
+</html>

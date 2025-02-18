@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de matematicas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .pregunta {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .respuesta-correcta {
+            color: green;
+            font-weight: bold;
+        }
+        .respuesta-incorrecta {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prueba de matematicas</h1>
+    <div id="preguntas"></div>
+    
+    <script>
+        const preguntas = [
+    { pregunta: "Si un rectángulo tiene un área de 48² y su base mide 8 m, ¿cuál es la altura?", opciones: ["6 m", "8 m", "12 m", "4 m"], correcta: 0 },
+    { pregunta: "Un número es divisible por 3 si la suma de sus cifras es múltiplo de 3. ¿Cuál de los siguientes números es divisible por 3?", opciones: ["124", "237", "455", "811"], correcta: 1 },
+    { pregunta: "Si un triángulo tiene lados de 5 cm, 12 cm y 13 cm, ¿es un triángulo rectángulo?", opciones: ["Sí, porque cumple con el teorema de Pitágoras", "No, porque sus lados no son proporcionales", "No, porque la suma de dos lados es menor que el tercero", "Sí, porque es equilátero"], correcta: 0 },
+    { pregunta: "Si el 20% de un número es 50, ¿cuál es el número?", opciones: ["100", "150", "250", "200"], correcta: 3 },
+    { pregunta: "En una tienda hay una promoción del 15% de descuento en todos los productos. Si un artículo cuesta $200.000, ¿cuánto se pagará con el descuento aplicado?", opciones: ["$180.000", "$170.000", "$185.000", "$190.000"], correcta: 0 },
+    { pregunta: "¿Cuál es el resultado de (3 + 5) × 2 - 4?", opciones: ["10", "12", "14", "16"], correcta: 2 },
+    { pregunta: "Si una camisa cuesta $80.000 y se aplica un aumento del 25%, ¿cuál será su nuevo precio?", opciones: ["$90.000", "$95.000", "$100.000", "$105.000"], correcta: 2 },
+    { pregunta: "En una urna hay 5 bolas rojas, 3 verdes y 2 azules. Si se extrae una bola al azar, ¿cuál es la probabilidad de que sea verde?", opciones: ["1/2", "3/10", "2/5", "3/5"], correcta: 1 },
+    { pregunta: "Si la función f(x) = 2x + 3, ¿cuál es el valor de f(4)?", opciones: ["9", "10", "11", "12"], correcta: 2 },
+    { pregunta: "Un auto recorre 240 km en 4 horas. ¿Cuál es su velocidad promedio?", opciones: ["40 km/h", "50 km/h", "60 km/h", "70 km/h"], correcta: 2 },
+    { pregunta: "¿Cuánto es el resultado de 3² + 4²?", opciones: ["9", "12", "16", "25"], correcta: 3 },
+    { pregunta: "Un número aumentado en un 30% da como resultado 65. ¿Cuál era el número original?", opciones: ["45", "50", "55", "60"], correcta: 1 },
+    { pregunta: "Si la suma de los ángulos internos de un polígono es 540°, ¿cuántos lados tiene?", opciones: ["5", "6", "7", "8"], correcta: 0 },
+    { pregunta: "¿Cuál es el área de un triángulo con base 10 cm y altura 8 cm?", opciones: ["30 cm²", "40 cm²", "50 cm²", "80 cm²"], correcta: 1 },
+    { pregunta: "Un cilindro tiene un radio de 4 cm y una altura de 10 cm. ¿Cuál es su volumen? (Usa p ˜ 3.14)", opciones: ["125.6 cm³", "314 cm³", "502.4 cm³", "628 cm³"], correcta: 2 },
+    { pregunta: "Si una caja tiene una capacidad de 200 cm³ y está llena hasta el 75%, ¿cuánto espacio libre queda en la caja?", opciones: ["50 cm³", "75 cm³", "100 cm³", "150 cm³"], correcta: 0 },
+    { pregunta: "¿Cuál es el resultado de 5! (5 factorial)?", opciones: ["20", "60", "120", "150"], correcta: 2 },
+    { pregunta: "Un tren viaja a una velocidad de 80 km/h. ¿Cuánto tiempo tardará en recorrer 240 km?", opciones: ["2 horas", "3 horas", "4 horas", "5 horas"], correcta: 1 },
+    { pregunta: "Si un número es triplicado y luego se le suma 9, el resultado es 30. ¿Cuál es el número original?", opciones: ["5", "6", "7", "8"], correcta: 1 },
+    { pregunta: "Un depósito de agua se llena en 3 horas y se vacía en 5 horas. Si está lleno y se abren ambas válvulas, ¿en cuánto tiempo se vaciará completamente?", opciones: ["4 horas", "5 horas", "7.5 horas", "10 horas"], correcta: 2 }
+];
+
+        const contenedorPreguntas = document.getElementById("preguntas");
+
+        preguntas.forEach((item, index) => {
+            const divPregunta = document.createElement("div");
+            divPregunta.classList.add("pregunta");
+            divPregunta.innerHTML = `<p><strong>${index + 1}. ${item.pregunta}</strong></p>`;
+            
+            item.opciones.forEach((opcion, i) => {
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = `pregunta-${index}`;
+                input.value = i;
+                input.onclick = () => verificarRespuesta(index, i);
+                
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(" " + opcion));
+                
+                divPregunta.appendChild(label);
+                divPregunta.appendChild(document.createElement("br"));
+            });
+            
+            const resultado = document.createElement("p");
+            resultado.id = `resultado-${index}`;
+            divPregunta.appendChild(resultado);
+            
+            contenedorPreguntas.appendChild(divPregunta);
+        });
+
+        function verificarRespuesta(index, seleccionada) {
+            const resultado = document.getElementById(`resultado-${index}`);
+            if (seleccionada === preguntas[index].correcta) {
+                resultado.innerHTML = "Respuesta correcta";
+                resultado.className = "respuesta-correcta";
+            } else {
+                resultado.innerHTML = `Respuesta incorrecta. La correcta es: ${preguntas[index].opciones[preguntas[index].correcta]}`;
+                resultado.className = "respuesta-incorrecta";
+            }
+        }
+    </script>
+</body>
+</html>
